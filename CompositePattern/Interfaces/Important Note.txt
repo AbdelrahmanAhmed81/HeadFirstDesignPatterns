@@ -1,0 +1,40 @@
+﻿if we choosed to "separate out the responsibilities into interfaces" to achieve the single responsibility for the MenuComponent class (by using this interfaces folder), then the code in Program.cs would be like that:
+
+{
+    IMenuComponent allMenus = new Menu("ALL MENUS" , "All menus combined");
+    IMenuComponent pancakeHouseMenu = new Menu("PANCAKE HOUSE MENU" , "Breakfast");
+    IMenuComponent dinerMenu = new Menu("DINER MENU" , "Lunch");
+    IMenuComponent dessertMenu = new Menu("DESSERT MENU" , "Dessert of course!");
+    IMenuComponent cafeMenu = new Menu("CAFE MENU" , "Dinner");
+    
+    // add more menu items here
+    if (dinerMenu is Menu)
+    {
+        (dinerMenu as Menu).add(new MenuItem("Pasta" , "Spaghetti with Marinara Sauce , and a slice of sourdough bread" , true , 3.89));
+        (dinerMenu as Menu).add(dessertMenu);
+    }
+    if (dessertMenu is Menu)
+    {
+        (dessertMenu as Menu).add(new MenuItem("Apple Pie" , "Apple pie with a flakey crust , topped with vanilla icecream" , true , 1.59));
+    }
+    
+    // add menu items here
+    if (allMenus is Menu)
+    {
+        (allMenus as Menu).add(pancakeHouseMenu);
+        (allMenus as Menu).add(dinerMenu);
+        (allMenus as Menu).add(cafeMenu);
+    }
+    
+    Waitress waitress = new Waitress(allMenus);
+    waitress.printMenu();
+}
+
+Look at this amount of type-cheking and casting!
+that what the book author meant by "our code would have to use conditionals and the instanceof operator".
+
+so we trade the saftey for transparency.
+
+seperating responsibilities into interfaces achive saftey (compile time checking) and single responsibilty but not transparency.
+
+READ PAGE 367.
